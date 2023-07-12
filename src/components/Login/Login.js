@@ -16,7 +16,7 @@ const Login = () =>  {
             password: password
         }
         //console.log(data);
-        apiLogin.post('', user).then(res => createApi(res.data.token)).catch(err => console.log(err));
+        apiLogin.post('', user).then(res => console.log(res.data)).catch(err => console.log(err));
     }
 
     return (

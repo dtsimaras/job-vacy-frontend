@@ -8,9 +8,6 @@ const AdminDashboard = ({ token, api }) => {
 
     useEffect(() => {
         api.get('/admin/users').then(res => setUsers(res.data))
-        // fetch('https://localhost:4000/users')
-        // .then(res => res.json())
-        // .then(data => setUsers(data))
     }, [])
 
     const handleDelete = async (id) => {
@@ -30,15 +27,19 @@ const AdminDashboard = ({ token, api }) => {
 
     return (
         <div>
-            <h2>All the available users</h2>
-            {users.map((user, index) => {
-                <li key={index}>
-                    <p>First Name : {user.firstname}</p>
-                    <p>Last Name : {user.lastname}</p>
-                    <p>Email : {user.email}</p>
-                    <button onClick={() => handleDelete(user.id)}>Delete User</button>         
-                </li>
-            })}
+            <h2>All the available users : {users.length}</h2>
+                <ul>
+                    {users.map((user) => {
+                        return (
+                            <li key={user.id}>
+                            <p>First Name : {user.firstname}</p>
+                            <p>Last Name : {user.lastname}</p>
+                            <p>Email : {user.email}</p>
+                            <button onClick={() => handleDelete(user.id)}>Delete User</button>         
+                        </li>
+                        )
+                    })}
+                </ul>
             <Link to='/register'>
                 <button>Create User</button>
             </Link>
