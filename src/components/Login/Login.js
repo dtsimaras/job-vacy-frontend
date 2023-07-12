@@ -1,22 +1,22 @@
 import './Login.css';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { apiLogin, createApi } from '../../api';
 
-export const Login = () =>  {
+const Login = () =>  {
 
     const [email, setEmail] = useState('');
     const [password, setPass] = useState('');
-    const api = axios.create({baseURL:'http://localhost:4000/api/v1/auth'})
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
         //api.get().then(res => console.log(res.data));
-        const data = {
+        const user = {
             email: email,
             password: password
         }
         //console.log(data);
-        api.post('/login', data).then(res => console.log(res.data)).catch(err => console.log(err));
+        apiLogin.post('', user).then(res => createApi(res.data.token)).catch(err => console.log(err));
     }
 
     return (
@@ -45,3 +45,5 @@ export const Login = () =>  {
         </div>
     )
 }
+
+export default Login;

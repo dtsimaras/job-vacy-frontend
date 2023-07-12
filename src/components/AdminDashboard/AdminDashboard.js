@@ -2,14 +2,15 @@ import './AdminDashboard.css'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const AdminDashboard = ({ token }) => {
+const AdminDashboard = ({ token, api }) => {
 
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch('https://localhost:4000/users')
-        .then(res => res.json())
-        .then(data => setUsers(data))
+        api.get('/admin/users').then(res => setUsers(res.data))
+        // fetch('https://localhost:4000/users')
+        // .then(res => res.json())
+        // .then(data => setUsers(data))
     }, [])
 
     const handleDelete = async (id) => {
