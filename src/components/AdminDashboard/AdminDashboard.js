@@ -1,51 +1,83 @@
-import './AdminDashboard.css'
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import "./AdminDashboard.css";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-const AdminDashboard = ({ token, api }) => {
+const AdminDashboard = ({ api }) => {
+  const [users, setUsers] = useState([]);
+  const [enabled, setEnabled] = useState(false);
 
-    const [users, setUsers] = useState([]);
+  useEffect(() => {
+    api.get("admin/users").then((res) => setUsers(res.data));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    useEffect(() => {
-        api.get('/admin/users').then(res => setUsers(res.data))
-    }, [])
-
-    const handleDelete = async (id) => {
-        await fetch(`https://localhost:4000/users/${id}`,
-        {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
+  const handleDisable = (id) => {
+    api
+      .delete(`admin/users/delete/${id}`)
+      .then((res) => console.log(res.data))
+      .finally(() =>
+        setUsers([
+          ...users.map((user) => {
+            if (user.id === id) {
+              user.enabled = false;
             }
-        })
+            return user;
+          }),
+        ])
+      );
+  };
+  const handleEnable = (id)=>{
+    api
+      .post(`admin/users/enable/${id}`)
+      .then((res) => console.log(res.data))
+      .finally(() =>
+        setUsers([
+          ...users.map((user) => {
+            if (user.id === id) {
+              user.enabled = true;
+            }
+            return user;
+          }),
+        ])
+      );
+  
+  }
 
-        await fetch('https://localhost:4000/users')
-        .then(res => res.json())
-        .then(data => setUsers(data))
-    }
+  return (
+    <div>
+      <h2>All the available users</h2>
+      <button type="button" onClick={(e) => setEnabled(!enabled)}>
+        {!enabled ? "See disabled" : "See enabled"}
+      </button>
 
-    return (
-        <div>
-            <h2>All the available users : {users.length}</h2>
-                <ul>
-                    {users.map((user) => {
-                        return (
-                            <li key={user.id}>
-                            <p>First Name : {user.firstname}</p>
-                            <p>Last Name : {user.lastname}</p>
-                            <p>Email : {user.email}</p>
-                            <button onClick={() => handleDelete(user.id)}>Delete User</button>         
-                        </li>
-                        )
-                    })}
-                </ul>
-            <Link to='/register'>
-                <button>Create User</button>
-            </Link>
-            
-        </div>
-    )
-}
+      <ul>
+        {users
+          .filter((user) => user.enabled !== enabled)
+          .map((user) => {
+            return (
+              <li key={user.id}>
+                <p>First Name : {user.firstname}</p>
+                <p>Last Name : {user.lastname}</p>
+                <p>Email : {user.email}</p>
+                <p>Enabled: {user.enabled ? "true":"false"}</p>
+                {!enabled ? (
+                  <button onClick={() => handleDisable(user.id)}>
+                    Disable User
+                  </button>
+                ) : (
+                  <button onClick={() => handleEnable(user.id)}>
+                    Enable User
+                  </button>
+                )}
+              </li>
+            );
+          })}
+      </ul>
+      <Link to="/register">
+        <button>Create User</button>
+      </Link>
+    </div>
+  );
+};
 
 export default AdminDashboard;

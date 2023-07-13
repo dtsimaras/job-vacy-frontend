@@ -1,49 +1,71 @@
-import './Login.css';
-import { useState, useEffect } from 'react';
-import { apiLogin, createApi } from '../../api';
+import "./Login.css";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import JwtContext from "../context/JwtContext";
+import LoggedUserContext from "../context/LoggedUserContext";
+import axios from "axios";
 
-const Login = () =>  {
+const Login = () => {
+  const login = axios.create({
+    baseURL: "http://localhost:4000/api/v1/auth/login",
+  });
+  const navigate = useNavigate();
+  const { setJwt } = useContext(JwtContext);
+  const { setLoggedUser } = useContext(LoggedUserContext);
+  const [loginFormData, setLoginFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-    const [email, setEmail] = useState('');
-    const [password, setPass] = useState('');
-    
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        //api.get().then(res => console.log(res.data));
-        const user = {
-            email: email,
-            password: password
-        }
-        //console.log(data);
-        apiLogin.post('', user).then(res => console.log(res.data)).catch(err => console.log(err));
-    }
+    login
+      .post('', loginFormData)
+      .then((res) => {
+        setJwt(res.data["token"]);
+        setLoggedUser({
+          ...res.data["userDao"],
+        });
+      })
+      .catch((err) => console.log(err))
+      .finally(() => navigate("/"));
+  };
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setLoginFormData({ ...loginFormData, [id]: value });
+  };
 
-    return (
-        <div>
-            <h2>Login</h2>
-            <form className="login-form" onSubmit={handleSubmit}>
-                <label htmlFor="email">Email</label>
-                <input value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    type="email" placeholder="email@exmaple.com"
-                    id="email"
-                    name="email"
-                    required
-                />
-                <label htmlFor="password">Password</label>
-                <input value={password}
-                    onChange={(e) => setPass(e.target.value)}
-                    type="password"
-                    placeholder="********"
-                    id="password"
-                    name="password"
-                    required
-                />
-                <button className="link-btn" type="submit">Log In</button>
-            </form>
-        </div>
-    )
-}
+  return (
+    <div>
+      <h2>Login</h2>
+      <form className="login-form" onSubmit={handleSubmit}>
+        <label htmlFor="email">Email</label>
+        <input
+          value={loginFormData.email}
+          onChange={handleChange}
+          type="email"
+          placeholder="email@exmaple.com"
+          id="email"
+          name="email"
+          required
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          value={loginFormData.password}
+          onChange={handleChange}
+          type="password"
+          placeholder="********"
+          id="password"
+          name="password"
+          required
+        />
+        <button className="link-btn" type="submit">
+          Log In
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default Login;
