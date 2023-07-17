@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import JwtContext from "../context/JwtContext";
 import LoggedUserContext from "../context/LoggedUserContext";
 import axios from "axios";
+import { Button, Form } from 'react-bootstrap';
+import FormContainer from "../FormContainer/FormContainer";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const Login = () => {
   const login = axios.create({
@@ -30,7 +34,8 @@ const Login = () => {
       })
       .catch((err) => console.log(err))
       .finally(() => navigate("/"));
-  };
+   };
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setLoginFormData({ ...loginFormData, [id]: value });
@@ -38,32 +43,20 @@ const Login = () => {
 
   return (
     <div>
-      <h2>Login</h2>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          value={loginFormData.email}
-          onChange={handleChange}
-          type="email"
-          placeholder="email@exmaple.com"
-          id="email"
-          name="email"
-          required
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          value={loginFormData.password}
-          onChange={handleChange}
-          type="password"
-          placeholder="********"
-          id="password"
-          name="password"
-          required
-        />
-        <button className="link-btn" type="submit">
-          Log In
-        </button>
-      </form>
+      <FormContainer>
+        <h2>Login Form</h2>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="email">
+            <Form.Label>Email Address</Form.Label>
+            <Form.Control type="email" placeholder="email@exmaple.com" value={loginFormData.email} onChange={handleChange} />
+          </Form.Group>
+          <Form.Group controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" value={loginFormData.password} onChange={handleChange}/>
+          </Form.Group>
+          <Button variant="secondary" type="submit">Login</Button>
+        </Form>
+      </FormContainer>
     </div>
   );
 };
