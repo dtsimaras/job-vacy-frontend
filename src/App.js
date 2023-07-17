@@ -4,14 +4,12 @@ import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import Navbar from "./components/Navbar/Navbar";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
-import JwtContext from "./components/context/JwtContext";
 import { useContext } from "react";
 import axios from "axios";
-import LoggedUserContext from "./components/context/LoggedUserContext";
+import ApplicationContext from "./components/context/ApplicationContext";
 
 function App() {
-  const { jwt } = useContext(JwtContext);
-  const { loggedUser } = useContext(LoggedUserContext);
+  const { jwt,loggedUser } = useContext(ApplicationContext);
 
   const api = axios.create({
     baseURL: "http://localhost:4000/api/v1/",

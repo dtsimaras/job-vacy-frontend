@@ -1,21 +1,20 @@
 import "./Login.css";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import JwtContext from "../context/JwtContext";
-import LoggedUserContext from "../context/LoggedUserContext";
 import axios from "axios";
 import { Button, Form } from 'react-bootstrap';
 import FormContainer from "../FormContainer/FormContainer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import ApplicationContext from "../context/ApplicationContext";
 
 const Login = () => {
   const login = axios.create({
     baseURL: "http://localhost:4000/api/v1/auth/login",
   });
   const navigate = useNavigate();
-  const { setJwt } = useContext(JwtContext);
-  const { setLoggedUser } = useContext(LoggedUserContext);
+  const { setJwt,setLoggedUser } = useContext(ApplicationContext);
+
   const [loginFormData, setLoginFormData] = useState({
     email: "",
     password: "",

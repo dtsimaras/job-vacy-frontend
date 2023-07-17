@@ -17,7 +17,7 @@ const Register = ({ api }) => {
     api
       .post("admin/users", registerFormData)
       .then((res) => console.log(res.data))
-      .finally(() => navigate("/admindashboard"));
+      .finally(() => navigate("/"));
   };
   const handleChange = (e) => {
     const { id, checked, value } = e.target;
