@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import Navbar from "./components/Navbar/Navbar";
 import Login from "./components/Login/Login";
+import AdminLogin from "./components/AdminLogin/AdminLogin";
 import Register from "./components/Register/Register";
 import { useContext } from "react";
 import axios from "axios";
@@ -35,7 +36,7 @@ function App() {
             <Route path="/" element={<Login />} />
           </>
         )}
-        <Route path="/admin/login" element={<Login />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/register" element={<Register api={api} />} />
       </Routes>
     </div>

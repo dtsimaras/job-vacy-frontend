@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { useContext } from "react";
-import LoggedUserContext from "../context/LoggedUserContext";
-import JwtContext from "../context/JwtContext";
+import ApplicationContext from "../context/ApplicationContext";
 
 const Navbar = ({ api }) => {
-  const { loggedUser, setLoggedUser } = useContext(LoggedUserContext);
-  const { setJwt } = useContext(JwtContext);
+  const { loggedUser, setLoggedUser,setJwt } = useContext(ApplicationContext);
   const handleLogout = () => {
     api
       .post("auth/logout")

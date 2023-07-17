@@ -4,8 +4,6 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { JwtProvider } from "./components/context/JwtContext";
-import { LoggedUserProvider } from "./components/context/LoggedUserContext";
 import { Context } from "./components/context/ApplicationContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
