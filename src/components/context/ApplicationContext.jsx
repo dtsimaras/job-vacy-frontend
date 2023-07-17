@@ -9,7 +9,13 @@ export const Context = ({ children }) => {
     "loggedUser.attentance",
     false
   );
-  return <ApplicationContext.Provider>{children}</ApplicationContext.Provider>;
+  return (
+    <ApplicationContext.Provider
+      value={{ jwt, setJwt, loggedUser, setLoggedUser }}
+    >
+      {children}
+    </ApplicationContext.Provider>
+  );
 };
 
 export default ApplicationContext;
