@@ -1,13 +1,15 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
-import Navbar from "./components/Navbar/Navbar";
+import ManagerDashboard from "./components/ManagerDashboard/ManagerDashboard";
 import Login from "./components/Login/Login";
-import AdminLogin from "./components/AdminLogin/AdminLogin";
 import Register from "./components/Register/Register";
+import Homepage from "./components/Homepage/Homepage";
 import { useContext } from "react";
 import axios from "axios";
 import ApplicationContext from "./components/context/ApplicationContext";
+import NavbarComponent from "./components/NavbarComponent/NavbarComponent";
+
 
 function App() {
   const { jwt,loggedUser } = useContext(ApplicationContext);
@@ -21,23 +23,22 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar api={api}/>
-
+      <NavbarComponent api={api}/>
       <Routes>
         {loggedUser ? (
           <>
             <Route
               path="/"
-              element={<AdminDashboard api={api} />}
-            />
+              element={<Homepage />} />
           </>
         ) : (
           <>
             <Route path="/" element={<Login />} />
           </>
         )}
-        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/register" element={<Register api={api} />} />
+        <Route path="/AdminDashboard" element={<AdminDashboard api={api} />} />
+        <Route path="/ManagerDashboard" element={<ManagerDashboard api={api} />} />
       </Routes>
     </div>
   );

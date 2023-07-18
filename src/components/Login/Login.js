@@ -28,8 +28,9 @@ const Login = () => {
       .then((res) => {
         setJwt(res.data["token"]);
         setLoggedUser({
-          ...res.data["userDao"],
+          ...res.data["userDao"]
         });
+        console.log(res.data)
       })
       .catch((err) => console.log(err))
       .finally(() => navigate("/"));
