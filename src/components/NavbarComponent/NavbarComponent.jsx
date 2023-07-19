@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
+/* eslint-disable react/prop-types */
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import { useContext } from "react";
 import ApplicationContext from "../context/ApplicationContext";
 
@@ -20,24 +19,22 @@ const NavbarComponent = ({ api }) => {
   };
 
   return (
-    
     <Navbar bg="dark" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand >Attendance</Navbar.Brand>
+        <Navbar.Brand>Attendance</Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#features">Features</Nav.Link>
-          
-            {loggedUser &&
-              <Nav.Link onClick={handleLogout}>Logout</Nav.Link>}
+          {loggedUser && (
+            <>
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#features">Features</Nav.Link>
 
-            {loggedUser &&
+              <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+
               <Navbar.Collapse className="justify-content-end">
-                <Navbar.Text>
-                Signed in as: {loggedUser.firstname}
-                </Navbar.Text> 
+                <Navbar.Text>Signed in as: {loggedUser.firstname}</Navbar.Text>
               </Navbar.Collapse>
-                 }
+            </>
+          )}
         </Nav>
       </Container>
     </Navbar>
