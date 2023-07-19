@@ -11,5 +11,5 @@ Backend Repository: [Backend-repo](https://github.com/akiskawi/job-vacy-backend)
 
 - Clone the project: git clone git@github.com:StavrosSpil/job-vacy-frontend.git
 - Download all the packages: npm install
-- Start the project: npm run start
+- Start the project: npm run dev
 
