@@ -10,9 +10,8 @@ import axios from "axios";
 import ApplicationContext from "./components/context/ApplicationContext";
 import NavbarComponent from "./components/NavbarComponent/NavbarComponent";
 
-
 function App() {
-  const { jwt,loggedUser } = useContext(ApplicationContext);
+  const { jwt, loggedUser } = useContext(ApplicationContext);
 
   const api = axios.create({
     baseURL: "http://localhost:4000/api/v1/",
@@ -23,13 +22,11 @@ function App() {
 
   return (
     <div className="App">
-      <NavbarComponent api={api}/>
+      <NavbarComponent api={api} />
       <Routes>
         {loggedUser ? (
           <>
-            <Route
-              path="/"
-              element={<Homepage />} />
+            <Route path="/" element={<Homepage />} />
           </>
         ) : (
           <>
@@ -38,7 +35,10 @@ function App() {
         )}
         <Route path="/register" element={<Register api={api} />} />
         <Route path="/AdminDashboard" element={<AdminDashboard api={api} />} />
-        <Route path="/ManagerDashboard" element={<ManagerDashboard api={api} />} />
+        <Route
+          path="/ManagerDashboard"
+          element={<ManagerDashboard api={api} />}
+        />
       </Routes>
     </div>
   );

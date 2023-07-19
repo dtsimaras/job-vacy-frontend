@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button, Form } from 'react-bootstrap';
 import FormContainer from "../FormContainer/FormContainer";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ApplicationContext from "../context/ApplicationContext";
 

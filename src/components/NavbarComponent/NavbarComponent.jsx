@@ -27,20 +27,17 @@ const NavbarComponent = ({ api }) => {
         <Nav className="me-auto">
           <Nav.Link href="#home">Home</Nav.Link>
           <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing"></Nav.Link>
           
-            {!loggedUser ? 
-              <Nav.Link href="#login">Login</Nav.Link> 
-              : 
+            {loggedUser &&
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>}
 
-            {loggedUser ?
+            {loggedUser &&
               <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
                 Signed in as: {loggedUser.firstname}
                 </Navbar.Text> 
               </Navbar.Collapse>
-                : "" }
+                 }
         </Nav>
       </Container>
     </Navbar>
