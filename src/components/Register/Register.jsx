@@ -83,12 +83,12 @@ const Register = ({ api }) => {
           </Col>
         </Form.Group>
         <fieldset>
-          <Form.Group as={Row} className="mb-3">
+          <Form.Group as={Row} className="mb-3 check">
             <Form.Label as="legend" column sm={1}>
               Roles :
             </Form.Label>
-            <Col sm={10}>
-              <Form.Check
+            <Col sm={2} className="d-flex justify-content-between align-items-center">
+              <Form.Check  
                 arial-label="User"
                 label="User"
                 name="user"
@@ -111,8 +111,8 @@ const Register = ({ api }) => {
         </fieldset>
 
         <Form.Group as={Row} className="mb-3">
-          <Col sm={{ span: 10, offset: 2 }}>
-            <Button type="submit">Create User</Button>
+          <Col sm={2} className="d-flex justify-content-end pe-5">
+            <Button variant="outline-success" type="submit">Create User</Button>
           </Col>
         </Form.Group>
       </Form>
