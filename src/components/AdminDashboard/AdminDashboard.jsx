@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import "./AdminDashboard.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -46,7 +47,7 @@ const AdminDashboard = ({ api }) => {
   return (
     <div>
       <h2>All the available users</h2>
-      <button type="button" onClick={(e) => setEnabled(!enabled)}>
+      <button type="button" onClick={() => setEnabled(!enabled)}>
         {!enabled ? "See disabled" : "See enabled"}
       </button>
 

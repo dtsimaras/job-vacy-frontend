@@ -43,17 +43,17 @@ const Login = () => {
   return (
     <div>
       <FormContainer>
-        <h2>Login Form</h2>
+        <h2 className="me-auto">Login Form</h2>
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="email">
+          <Form.Group className="mb-3" controlId="email">
             <Form.Label>Email Address</Form.Label>
             <Form.Control type="email" placeholder="email@exmaple.com" value={loginFormData.email} onChange={handleChange} />
           </Form.Group>
-          <Form.Group controlId="password">
+          <Form.Group className="mb-3" controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" value={loginFormData.password} onChange={handleChange}/>
           </Form.Group>
-          <Button variant="secondary" type="submit">Login</Button>
+          <Button variant="primary" type="submit">Login</Button>
         </Form>
       </FormContainer>
     </div>

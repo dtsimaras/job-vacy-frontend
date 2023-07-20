@@ -1,0 +1,9 @@
+h2 {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.register-form {
+    padding-left: 20px;
+}

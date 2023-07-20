@@ -1,6 +1,11 @@
+/* eslint-disable react/prop-types */
 import "./Register.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 
 const Register = ({ api }) => {
   const navigate = useNavigate();
@@ -9,7 +14,7 @@ const Register = ({ api }) => {
     lastname: "",
     email: "",
     password: "",
-    roles: ["USER"],
+    roles: [""],
   });
 
   const handleSubmit = (e) => {
@@ -39,79 +44,78 @@ const Register = ({ api }) => {
   };
 
   return (
-    <div>
-      <h2>Create a new user</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="firstname">Firstname</label>
-        <input
-          type="text"
-          value={registerFormData.firstname}
-          name="firstname"
-          onChange={handleChange}
-          id="firstname"
-          placeholder="Firstname"
-        />
+    <div className="register-form">
+      <Form onSubmit={handleSubmit}>
+        <h2>Create a new user</h2>
+        <Form.Group as={Row} className="mb-3" controlId="firstname">
+          <Form.Label column sm={1}>
+            Firstname :
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control type="firstname" placeholder="Firstname" value={registerFormData.firstname} onChange={handleChange} />
+          </Col>
+        </Form.Group>
 
-        <label htmlFor="lastname">Lastname</label>
-        <input
-          type="text"
-          value={registerFormData.lastname}
-          name="lastname"
-          onChange={handleChange}
-          id="lastname"
-          placeholder="Lastname"
-        />
+        <Form.Group as={Row} className="mb-3" controlId="lastname">
+          <Form.Label column sm={1}>
+            Lastname :
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control type="lastname" placeholder="Lastname" value={registerFormData.lastname} onChange={handleChange}/>
+          </Col>
+        </Form.Group>
 
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          value={registerFormData.email}
-          name="email"
-          onChange={handleChange}
-          id="email"
-          placeholder="Email"
-        />
+        <Form.Group as={Row} className="mb-3" controlId="email">
+          <Form.Label column sm={1}>
+            Email :
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control type="email" placeholder="Email" value={registerFormData.email} onChange={handleChange}/>
+          </Col>
+        </Form.Group>
 
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          value={registerFormData.password}
-          name="password"
-          onChange={handleChange}
-          id="password"
-          placeholder="Password"
-        />
-        <label htmlFor="user">User</label>
-        <input
-          onChange={handleChange}
-          disabled
-          checked={registerFormData.roles.includes("USER")}
-          type="checkbox"
-          name="user"
-          id="user"
-        />
+        <Form.Group as={Row} className="mb-3" controlId="password">
+          <Form.Label column sm={1}>
+            Password :
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control type="password" placeholder="Password" value={registerFormData.password} onChange={handleChange}/>
+          </Col>
+        </Form.Group>
+        <fieldset>
+          <Form.Group as={Row} className="mb-3">
+            <Form.Label as="legend" column sm={1}>
+              Roles :
+            </Form.Label>
+            <Col sm={10}>
+              <Form.Check
+                arial-label="User"
+                label="User"
+                name="user"
+                id="user"
+              />
+              <Form.Check
+                arial-label="Manager"
+                label="Manager"
+                name="manager"
+                id="manager"
+              />
+              <Form.Check
+                arial-label="Admin"
+                label="Admin"
+                name="admin"
+                id="admin"
+              />
+            </Col>
+          </Form.Group>
+        </fieldset>
 
-        <label htmlFor="manager">Manager</label>
-        <input
-          onChange={handleChange}
-          checked={registerFormData.roles.includes("MANAGER")}
-          type="checkbox"
-          id="manager"
-          name="manager"
-          value="MANAGER"
-        />
-
-        <label htmlFor="admin">Admin</label>
-        <input
-          onChange={handleChange}
-          checked={registerFormData.roles.includes("ADMIN")}
-          type="checkbox"
-          id="admin"
-          name="admin"
-          value="ADMIN"
-        />
-        <button type="submit">Create User</button>
-      </form>
+        <Form.Group as={Row} className="mb-3">
+          <Col sm={{ span: 10, offset: 2 }}>
+            <Button type="submit">Create User</Button>
+          </Col>
+        </Form.Group>
+      </Form>
     </div>
   );
 };
