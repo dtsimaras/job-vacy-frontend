@@ -1,0 +1,8 @@
+.App{
+    background-color: rgb(190, 190, 189);
+    height: 100vh;
+    overflow: hidden;
+    /* display: grid; */
+    /* place-items: center;? */
+
+}

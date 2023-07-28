@@ -9,6 +9,7 @@ import { useContext } from "react";
 import axios from "axios";
 import ApplicationContext from "./components/context/ApplicationContext";
 import NavbarComponent from "./components/NavbarComponent/NavbarComponent";
+import LoginPage from "./components/Login/LoginPage";
 
 function App() {
   const { jwt, loggedUser } = useContext(ApplicationContext);
@@ -30,7 +31,7 @@ function App() {
           </>
         ) : (
           <>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<LoginPage />} />
           </>
         )}
         <Route path="/register" element={<Register api={api} />} />

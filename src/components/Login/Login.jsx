@@ -2,7 +2,7 @@ import "./Login.css";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form } from "react-bootstrap";
 import FormContainer from "../FormContainer/FormContainer";
 
 import ApplicationContext from "../context/ApplicationContext";
@@ -12,7 +12,7 @@ const Login = () => {
     baseURL: "http://localhost:4000/api/v1/auth/login",
   });
   const navigate = useNavigate();
-  const { setJwt,setLoggedUser } = useContext(ApplicationContext);
+  const { setJwt, setLoggedUser } = useContext(ApplicationContext);
 
   const [loginFormData, setLoginFormData] = useState({
     email: "",
@@ -23,17 +23,17 @@ const Login = () => {
     e.preventDefault();
 
     login
-      .post('', loginFormData)
+      .post("", loginFormData)
       .then((res) => {
         setJwt(res.data["token"]);
         setLoggedUser({
-          ...res.data["userDao"]
+          ...res.data["userDao"],
         });
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch((err) => console.log(err))
       .finally(() => navigate("/"));
-   };
+  };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -41,19 +41,31 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="login-page">
       <FormContainer>
-        <h2 className="me-auto">Login Form</h2>
+        <h2 className="h2">Login Form</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="email">
             <Form.Label>Email Address</Form.Label>
-            <Form.Control type="email" placeholder="email@exmaple.com" value={loginFormData.email} onChange={handleChange} />
+            <Form.Control
+              type="email"
+              placeholder="email@exmaple.com"
+              value={loginFormData.email}
+              onChange={handleChange}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="password">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" value={loginFormData.password} onChange={handleChange}/>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              value={loginFormData.password}
+              onChange={handleChange}
+            />
           </Form.Group>
-          <Button variant="primary" type="submit">Login</Button>
+          <Button variant="primary" type="submit">
+            Login
+          </Button>
         </Form>
       </FormContainer>
     </div>

@@ -46,7 +46,7 @@ const Register = ({ api }) => {
   return (
     <div className="register-form">
       <Form onSubmit={handleSubmit}>
-        <h2>Create a new user</h2>
+        <h2 className="h2-register">Create a new user</h2>
         <Form.Group as={Row} className="mb-3" controlId="firstname">
           <Form.Label column sm={1}>
             Firstname :
