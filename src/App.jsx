@@ -2,7 +2,6 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import ManagerDashboard from "./components/ManagerDashboard/ManagerDashboard";
-import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Homepage from "./components/Homepage/Homepage";
 import { useContext } from "react";
@@ -10,6 +9,7 @@ import axios from "axios";
 import ApplicationContext from "./components/context/ApplicationContext";
 import NavbarComponent from "./components/NavbarComponent/NavbarComponent";
 import LoginPage from "./components/Login/LoginPage";
+import { ConditionalPageRender } from "./components/ConditionalRender";
 
 function App() {
   const { jwt, loggedUser } = useContext(ApplicationContext);
@@ -35,10 +35,19 @@ function App() {
           </>
         )}
         <Route path="/register" element={<Register api={api} />} />
-        <Route path="/AdminDashboard" element={<AdminDashboard api={api} />} />
+
+        {loggedUser && loggedUser.roles.includes("ADMIN") &&
+          <Route path="/AdminDashboard" element={
+            <AdminDashboard api={api} />
+          } />
+        }
         <Route
           path="/ManagerDashboard"
-          element={<ManagerDashboard api={api} />}
+          element={
+            <ConditionalPageRender role={"MANAGER"}>
+              <ManagerDashboard api={api} />
+            </ConditionalPageRender>
+          }
         />
       </Routes>
     </div>

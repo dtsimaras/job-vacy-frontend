@@ -11,6 +11,7 @@ const LoginPage = () => {
   });
   const navigate = useNavigate();
   const { setJwt, setLoggedUser } = useContext(ApplicationContext);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const [loginFormData, setLoginFormData] = useState({
     email: "",
@@ -28,8 +29,12 @@ const LoginPage = () => {
           ...res.data["userDao"],
         });
         console.log(res.data);
+        setErrorMessage(null);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        setErrorMessage(err.message);
+        console.log(err)
+      })
       .finally(() => navigate("/"));
   };
 
@@ -74,6 +79,7 @@ const LoginPage = () => {
           </button>
         </div>
       </form>
+      <label>{errorMessage}</label>
     </div>
   );
 };
