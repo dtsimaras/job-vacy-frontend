@@ -1,6 +1,5 @@
 import { createContext } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
-
 const ApplicationContext = createContext();
 
 export const Context = ({ children }) => {
@@ -9,6 +8,7 @@ export const Context = ({ children }) => {
     "loggedUser.attentance",
     false
   );
+
   return (
     <ApplicationContext.Provider
       value={{ jwt, setJwt, loggedUser, setLoggedUser }}

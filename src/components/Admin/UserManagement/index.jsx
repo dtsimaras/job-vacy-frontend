@@ -1,15 +1,17 @@
 /* eslint-disable react/prop-types */
-import "./AdminDashboard.css";
-import { useState, useEffect } from "react";
+import useApi from "../../../hooks/useApi";
+import "./style.css";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
-const AdminDashboard = ({ api }) => {
+//TODO: find a more appopriate name for this component
+const UserManagement = () => {
   const [users, setUsers] = useState([]);
   const [enabled, setEnabled] = useState(false);
+  const { api } = useApi();
 
   useEffect(() => {
     api.get("admin/users").then((res) => setUsers(res.data));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDisable = (id) => {
@@ -81,4 +83,4 @@ const AdminDashboard = ({ api }) => {
   );
 };
 
-export default AdminDashboard;
+export default UserManagement;

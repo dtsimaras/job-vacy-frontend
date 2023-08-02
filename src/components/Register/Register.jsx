@@ -6,8 +6,10 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import useApi from "../../hooks/useApi";
 
-const Register = ({ api }) => {
+const Register = () => {
+  const { api } = useApi();
   const navigate = useNavigate();
   const [registerFormData, setRegisterFormData] = useState({
     firstname: "",
@@ -61,7 +63,7 @@ const Register = ({ api }) => {
             Lastname :
           </Form.Label>
           <Col sm={7}>
-            <Form.Control type="lastname" placeholder="Lastname" value={registerFormData.lastname} onChange={handleChange}/>
+            <Form.Control type="lastname" placeholder="Lastname" value={registerFormData.lastname} onChange={handleChange} />
           </Col>
         </Form.Group>
 
@@ -70,7 +72,7 @@ const Register = ({ api }) => {
             Email :
           </Form.Label>
           <Col sm={7}>
-            <Form.Control type="email" placeholder="Email" value={registerFormData.email} onChange={handleChange}/>
+            <Form.Control type="email" placeholder="Email" value={registerFormData.email} onChange={handleChange} />
           </Col>
         </Form.Group>
 
@@ -79,7 +81,7 @@ const Register = ({ api }) => {
             Password :
           </Form.Label>
           <Col sm={7}>
-            <Form.Control type="password" placeholder="Password" value={registerFormData.password} onChange={handleChange}/>
+            <Form.Control type="password" placeholder="Password" value={registerFormData.password} onChange={handleChange} />
           </Col>
         </Form.Group>
         <fieldset>
@@ -88,7 +90,7 @@ const Register = ({ api }) => {
               Roles :
             </Form.Label>
             <Col sm={2} className="d-flex justify-content-between align-items-center">
-              <Form.Check  
+              <Form.Check
                 arial-label="User"
                 label="User"
                 name="user"
