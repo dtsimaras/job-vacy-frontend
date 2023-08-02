@@ -1,6 +1,6 @@
 import useApi from "../../../hooks/useApi";
 import "./style.css";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Button, Table } from 'react-bootstrap';
 
 //TODO: find a more appopriate name for this component
@@ -46,9 +46,7 @@ const UserManagement = () => {
   // }
 
   const headers = users.length > 0 ? Object.keys(users[0]) : [];
-  const convertToDisplayValue = (value) => {
-    return value ? 'Yes' : 'No';
-  };
+  const convertToDisplayValue = (value) => { return value ? 'Yes' : 'No'; };
 
   return (
     <>
@@ -67,9 +65,9 @@ const UserManagement = () => {
               {headers.map((header) => (
                 <td key={header}>
                   {typeof user[header] === 'boolean'
-                  ? convertToDisplayValue(user[header])
-                  : user[header]}
-                  </td>
+                    ? convertToDisplayValue(user[header])
+                    : user[header]}
+                </td>
               ))}
             </tr>
           ))}

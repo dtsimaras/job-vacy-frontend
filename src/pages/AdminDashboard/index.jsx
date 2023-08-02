@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import UserManagement from '../../components/Admin/UserManagement';
+import UserManagement from './UserManagement';
 import Header from '../../components/Header';
 import { Tabs, Tab } from 'react-bootstrap';
 
