@@ -7,7 +7,7 @@ import ApplicationContext from "../context/ApplicationContext";
 import { useNavigate } from "react-router-dom";
 import useApi from "../../hooks/useApi";
 
-const NavbarComponent = () => {
+const Header = () => {
   const { loggedUser, setLoggedUser, setJwt } = useContext(ApplicationContext);
   const { api } = useApi();
   const navigate = useNavigate();
@@ -51,4 +51,4 @@ const NavbarComponent = () => {
   );
 };
 
-export default NavbarComponent;
+export default Header;

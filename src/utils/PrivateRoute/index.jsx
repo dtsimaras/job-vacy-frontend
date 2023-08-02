@@ -9,7 +9,7 @@ function PrivateRoute({ element, requiredRoles }) {
 
     const hasRequiredRole = loggedUser.roles.some((role) => requiredRoles.includes(role));
 
-    if (!hasRequiredRole) return <Navigate to="/" />; //TODO: maybe create an anothorized page
+    if (!hasRequiredRole) return <Navigate to="/" />; //TODO: maybe create an unauthorized page
     
     return element;
 }

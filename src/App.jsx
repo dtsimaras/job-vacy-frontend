@@ -1,7 +1,7 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import ManagerDashboard from "./components/ManagerDashboard/ManagerDashboard";
-import Register from "./components/Register/Register";
+import CreateUser from "./components/CreateUser";
 import Home from "./pages/Home";
 import AdminDashboard from "./pages/AdminDashboard";
 import PrivateRoute from "./utils/PrivateRoute";
@@ -12,19 +12,13 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/admin"
-          element={
-            <PrivateRoute element={<AdminDashboard />} requiredRoles={['ADMIN']} />
-          }
-        />
-        <Route
-          path="/manager"
-          element={
-            <PrivateRoute element={<ManagerDashboard />} requiredRoles={['MANAGER']} />
-          }
-        />
+
+        {/* Admin routes */}
+        <Route path="/admin" element={<PrivateRoute element={<AdminDashboard />} requiredRoles={['ADMIN']} />} />
+        <Route path="/admin/create-user" element={<PrivateRoute element={<CreateUser />} requiredRoles={['ADMIN']} />} />
+
+        {/* Manager routes */}
+        <Route path="/manager" element={<PrivateRoute element={<ManagerDashboard />} requiredRoles={['MANAGER']} />} />
       </Routes>
     </div>
   );

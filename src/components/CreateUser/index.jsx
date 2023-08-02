@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import "./Register.css";
+import "./style.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import useApi from "../../hooks/useApi";
 
-const Register = () => {
+const CreateUser = () => {
   const { api } = useApi();
   const navigate = useNavigate();
   const [registerFormData, setRegisterFormData] = useState({
@@ -122,4 +122,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default CreateUser;
