@@ -1,16 +1,14 @@
 import useApi from "../../../hooks/useApi";
 import { useState, useEffect } from "react";
-import { Button, Dropdown, DropdownButton, Pagination, Spinner, Table } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Pagination, Spinner, Table } from 'react-bootstrap';
 
-//TODO: find a more appopriate name for this component
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [totalUsers, setTotalUsers] = useState(10);
+  // const [totalUsers, setTotalUsers] = useState(10);
   const { loading, get } = useApi();
-  // const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +17,7 @@ const UserManagement = () => {
         setUsers(res.data.content);
         setCurrentPage(res.data.currentPage);
         setTotalPages(res.data.pages);
-        setTotalUsers(res.data.count);
+        // setTotalUsers(res.data.count);
       } catch (error) {
         console.error('Error fetching users:', error);
       }
@@ -28,37 +26,6 @@ const UserManagement = () => {
     fetchData();
   }, [currentPage, pageSize]);
 
-  // const handleDisable = (id) => {
-  //   api
-  //     .delete(`admin/users/delete/${id}`)
-  //     .then((res) => console.log(res.data))
-  //     .finally(() =>
-  //       setUsers([
-  //         ...users.map((user) => {
-  //           if (user.id === id) {
-  //             user.enabled = false;
-  //           }
-  //           return user;
-  //         }),
-  //       ])
-  //     );
-  // };
-  // const handleEnable = (id) => {
-  //   api
-  //     .post(`admin/users/enable/${id}`)
-  //     .then((res) => console.log(res.data))
-  //     .finally(() =>
-  //       setUsers([
-  //         ...users.map((user) => {
-  //           if (user.id === id) {
-  //             user.enabled = true;
-  //           }
-  //           return user;
-  //         }),
-  //       ])
-  //     );
-
-  // }
 
   const headers = users.length > 0 ? Object.keys(users[0]) : [];
 
@@ -116,7 +83,6 @@ const UserManagement = () => {
 
   return (
     <>
-      <Button href="admin/create-user" >New User</Button> {/*TODO: Isws na einai kai auto Tabs, i Radio, i Active Button  */}
       {loading ? loader : usersTable}
     </>
   );
