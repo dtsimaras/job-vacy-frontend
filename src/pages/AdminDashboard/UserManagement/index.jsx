@@ -1,6 +1,6 @@
 import useApi from "../../../hooks/useApi";
 import { useState, useEffect } from "react";
-import { Dropdown, DropdownButton, Pagination, Spinner, Table } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Pagination, Spinner, Table } from "react-bootstrap";
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
@@ -13,41 +13,42 @@ const UserManagement = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await get(`admin/users?pageNo=${currentPage}&pageSize=${pageSize}`);
+        const res = await get(
+          `admin/users?pageNo=${currentPage}&pageSize=${pageSize}`
+        );
         setUsers(res.data.content);
         setCurrentPage(res.data.currentPage);
         setTotalPages(res.data.pages);
         // setTotalUsers(res.data.count);
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error("Error fetching users:", error);
       }
     };
 
     fetchData();
   }, [currentPage, pageSize]);
 
-
   const headers = users.length > 0 ? Object.keys(users[0]) : [];
 
-  //TODO: maybe move this to util if we use it again
   const displayRowData = (element, header) => {
-    if (typeof element[header] === 'boolean') {
-      return element[header] ? 'Yes' : 'No';
+    if (typeof element[header] === "boolean") {
+      return element[header] ? "Yes" : "No";
     }
     if (Array.isArray(element[header])) {
       return element[header].join(", ");
     }
     return element[header];
-  }
+  };
 
-  const loader =
+  const loader = (
     <Spinner className="d-flex" animation="border" role="status">
       <span className="visually-hidden">Loading...</span>
-    </Spinner>;
+    </Spinner>
+  );
 
-  const usersTable =
+  const usersTable = (
     <>
-      <Table responsive >
+      <Table responsive>
         <thead>
           <tr>
             {headers.map((header) => (
@@ -59,9 +60,7 @@ const UserManagement = () => {
           {users.map((user) => (
             <tr key={user.id}>
               {headers.map((header) => (
-                <td key={header}>
-                  {displayRowData(user, header)}
-                </td>
+                <td key={header}>{displayRowData(user, header)}</td>
               ))}
             </tr>
           ))}
@@ -73,19 +72,27 @@ const UserManagement = () => {
           <Dropdown.Item onClick={() => setPageSize(20)}>20</Dropdown.Item>
           <Dropdown.Item onClick={() => setPageSize(50)}>50</Dropdown.Item>
         </DropdownButton>
-        <Pagination.First disabled={currentPage <= 1} onClick={() => setCurrentPage(1)} />
-        <Pagination.Prev disabled={currentPage <= 1} onClick={() => setCurrentPage(currentPage - 1)} />
-        <Pagination.Next disabled={currentPage >= totalPages} onClick={() => setCurrentPage(currentPage + 1)} />
-        <Pagination.Last disabled={currentPage >= totalPages} onClick={() => setCurrentPage(totalPages)} />
+        <Pagination.First
+          disabled={currentPage <= 1}
+          onClick={() => setCurrentPage(1)}
+        />
+        <Pagination.Prev
+          disabled={currentPage <= 1}
+          onClick={() => setCurrentPage(currentPage - 1)}
+        />
+        <Pagination.Next
+          disabled={currentPage >= totalPages}
+          onClick={() => setCurrentPage(currentPage + 1)}
+        />
+        <Pagination.Last
+          disabled={currentPage >= totalPages}
+          onClick={() => setCurrentPage(totalPages)}
+        />
       </Pagination>
-    </>;
-
-
-  return (
-    <>
-      {loading ? loader : usersTable}
     </>
   );
+
+  return <>{loading ? loader : usersTable}</>;
 };
 
 export default UserManagement;

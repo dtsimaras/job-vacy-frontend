@@ -4,9 +4,10 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import useApi from "../../hooks/useApi";
-import { Container, FloatingLabel } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 const CreateUser = ({ setActiveUsersView }) => {
+
   const { api } = useApi();
   const [registerFormData, setRegisterFormData] = useState({
     firstname: "",

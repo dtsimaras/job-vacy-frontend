@@ -1,23 +1,27 @@
 import { useState } from "react";
-import UserManagement from "./UserManagement";
+// import UserManagement from "./UserManagement";
 import Header from "../../components/Header";
 import { Tabs, Tab, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import CreateUser from "../../components/CreateUser";
 import Panel from "./Panel";
+import DataTable from "../../components/DataTable";
 
 function AdminDashboard() {
-  const [activeUsersView, setActiveUsersView] = useState("users");
+  const [activeUsersView, setActiveUsersView] = useState("usersTab");
 
-  const users = <UserManagement />;
-  const createUser = <CreateUser setActiveUsersView={setActiveUsersView} />;
+  const usersTab = <>
+    {/* <UserManagement /> */}
+    <DataTable dataUrl={"admin/users"} /> 
+  </>;
+  const createUserTab = <CreateUser props={setActiveUsersView} />;
 
   const userViews = {
-    users,
-    createUser,
+    usersTab,
+    createUserTab,
   };
 
   return (
-    <div>
+    <>
       <Header />
       <Tabs
         defaultActiveKey="panel"
@@ -39,18 +43,18 @@ function AdminDashboard() {
             value={activeUsersView}
           >
             <ToggleButton
-              variant="outline-light"
+              variant={activeUsersView === "usersTab" ? "light" : "outline-light"}
               id="tbg-radio-1"
               value={"users"}
-              onChange={() => setActiveUsersView("users")}
+              onChange={() => setActiveUsersView("usersTab")}
             >
               Users
             </ToggleButton>
             <ToggleButton
-              variant="outline-light"
+              variant={activeUsersView === "createUserTab" ? "light" : "outline-light"}
               id="tbg-radio-2"
               value={"createUser"}
-              onChange={() => setActiveUsersView("createUser")}
+              onChange={() => setActiveUsersView("createUserTab")}
             >
               Create User
             </ToggleButton>
@@ -61,7 +65,7 @@ function AdminDashboard() {
           Tab content for Team Management
         </Tab>
       </Tabs>
-    </div>
+    </>
   );
 }
 

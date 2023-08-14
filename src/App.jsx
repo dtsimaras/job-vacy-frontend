@@ -7,6 +7,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import PrivateRoute from "./utils/PrivateRoute";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import UserDashboard from "./pages/UserDashboard";
 
 function App() {
 
@@ -21,6 +22,10 @@ function App() {
 
         {/* Manager routes */}
         <Route path="/manager" element={<PrivateRoute element={<ManagerDashboard />} requiredRoles={['MANAGER']} />} />
+
+        {/* User routes */}
+        <Route path="/user" element={<PrivateRoute element={<UserDashboard />} requiredRoles={['USER']} />} />
+
       </Routes>
     </div>
   );
