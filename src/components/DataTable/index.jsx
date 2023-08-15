@@ -1,6 +1,7 @@
 import useApi from "../../hooks/useApi";
 import { useState, useEffect } from "react";
 import { Container, Dropdown, DropdownButton, Pagination, Spinner, Table } from "react-bootstrap";
+import { FaEdit } from "react-icons/fa";
 
 const DataTable = ({ dataUrl }) => {
 
@@ -55,6 +56,7 @@ const DataTable = ({ dataUrl }) => {
                         {headers.map((header) => (
                             <th key={header}>{header}</th>
                         ))}
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,16 +65,19 @@ const DataTable = ({ dataUrl }) => {
                             {headers.map((header) => (
                                 <td key={header}>{formattedData(item, header)}</td>
                             ))}
+                            <td><FaEdit /></td>
                         </tr>
                     ))}
                 </tbody>
             </Table>
+
             <Pagination className="justify-content-center">
                 <DropdownButton variant="light" title={pageSize}>
                     <Dropdown.Item onClick={() => setPageSize(10)}>10</Dropdown.Item>
                     <Dropdown.Item onClick={() => setPageSize(20)}>20</Dropdown.Item>
                     <Dropdown.Item onClick={() => setPageSize(50)}>50</Dropdown.Item>
                 </DropdownButton>
+
                 <Pagination.First
                     disabled={currentPage <= 1}
                     onClick={() => setCurrentPage(1)}
