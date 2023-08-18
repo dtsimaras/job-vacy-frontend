@@ -97,8 +97,10 @@ const DataTable = ({ dataUrl }) => {
             </Pagination>
         </Container>
     );
-    return <>{loading ? loader :
-        data.length == 0 ? <h2>No Data</h2> : table}</>;
+    return <>
+    {loading ? loader :
+        data.length == 0 ? <h2>No Data</h2> : table}
+        </>;
 };
 
 export default DataTable;
