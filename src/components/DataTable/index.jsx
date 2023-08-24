@@ -37,7 +37,8 @@ const DataTable = ({ dataUrl }) => {
             return element[header] ? "Yes" : "No";
         }
         if (Array.isArray(element[header])) {
-            return element[header].join(", ");
+            const arr = [...element[header]].reverse();
+            return arr.join("/");
         }
         return element[header];
     };
