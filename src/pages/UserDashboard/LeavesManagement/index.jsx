@@ -3,6 +3,7 @@ import DataTable from "../../../components/DataTable"
 import useApi from "../../../hooks/useApi";
 
 function LeaveManagement() {
+  // Maybe need leave types to useContext and somwhere higher e.x. App.jsx
   const [leaveTypes, setLeaveTypes] = useState('');
   const { get} = useApi();
 

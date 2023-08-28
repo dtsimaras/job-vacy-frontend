@@ -11,6 +11,7 @@ const today = new Date();
 const minStartDate = new Date();
 minStartDate.setDate(today.getDate());
 
+//TODO: Can be refactored and split
 const LeaveRequestForm = () => {
     const [startDate, setStartDate] = useState(minStartDate);
     const [endDate, setEndDate] = useState(null);
