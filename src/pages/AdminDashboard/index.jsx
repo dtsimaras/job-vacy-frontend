@@ -13,7 +13,7 @@ function AdminDashboard() {
     {/* <UserManagement /> */}
     <DataTable dataUrl={"admin/users"} /> 
   </>;
-  const createUserTab = <CreateUser props={setActiveUsersView} />;
+  const createUserTab = <CreateUser setActiveUsersView={setActiveUsersView} />;
 
   const userViews = {
     usersTab,

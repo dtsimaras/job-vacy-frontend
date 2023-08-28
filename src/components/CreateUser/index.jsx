@@ -22,8 +22,9 @@ const CreateUser = ({ setActiveUsersView }) => {
     api
       .post("admin/users", registerFormData)
       .then((res) => console.log(res.data))
-      .finally(() => setActiveUsersView("users"));
+      .finally(() => setActiveUsersView("usersTab"));
   };
+
   const handleChange = (e) => {
     const { id, checked, value } = e.target;
     if (e.target.type === "checkbox") {
