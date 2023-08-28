@@ -3,7 +3,18 @@ import { useState, useEffect } from "react";
 import { Container, Dropdown, DropdownButton, Pagination, Spinner, Table } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 
-const DataTable = ({ dataUrl }) => {
+const defaultDataFormatter = (element, header) => {
+    if (typeof element[header] === "boolean") {
+        return element[header] ? "Yes" : "No";
+    }
+    if (Array.isArray(element[header])) {
+        const arr = [...element[header]].reverse();
+        return arr.join(", ");
+    }
+    return element[header];
+}
+
+const DataTable = ({ dataUrl, formatter }) => {
 
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -33,14 +44,10 @@ const DataTable = ({ dataUrl }) => {
     const headers = data.length > 0 ? Object.keys(data[0]) : [];
 
     const formattedData = (element, header) => {
-        if (typeof element[header] === "boolean") {
-            return element[header] ? "Yes" : "No";
+        if (!formatter) {
+            return defaultDataFormatter(element, header);
         }
-        if (Array.isArray(element[header])) {
-            const arr = [...element[header]].reverse();
-            return arr.join("/");
-        }
-        return element[header];
+        return formatter(element, header);
     };
 
     const loader = (
@@ -98,10 +105,11 @@ const DataTable = ({ dataUrl }) => {
             </Pagination>
         </Container>
     );
+
     return <>
-    {loading ? loader :
-        data.length == 0 ? <h2>No Data</h2> : table}
-        </>;
+        {loading ? loader :
+            data.length == 0 ? <h3>No Data</h3> : table}
+    </>;
 };
 
 export default DataTable;

@@ -4,11 +4,12 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import useApi from '../../../hooks/useApi';
+import "./style.css";
 
 // Get todays date in order to set dates you can pick in the DatePicker 
 const today = new Date();
 const minStartDate = new Date();
-minStartDate.setDate(today.getDate() + 5);
+minStartDate.setDate(today.getDate());
 
 const LeaveRequestForm = () => {
     const [startDate, setStartDate] = useState(minStartDate);
@@ -51,7 +52,7 @@ const LeaveRequestForm = () => {
         setRemainingDays(daysPerLeaveType.find(element => element.type === selectedType)?.remaining || -1);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = () => {
         // event.preventDefault();
         try {
             post("user/requests", { startDate, endDate, type: selectedType })
@@ -96,6 +97,7 @@ const LeaveRequestForm = () => {
                                     endDate={endDate}
                                     minDate={minStartDate}
                                     filterDate={isWeekday}
+                                    dayClassName={date => isWeekday(date) ? "weekend" : ""}
                                 />
                             </Col>
                         </Form.Group>
@@ -113,6 +115,7 @@ const LeaveRequestForm = () => {
                                     endDate={endDate}
                                     minDate={startDate}
                                     filterDate={isWeekday}
+                                    dayClassName={date => isWeekday(date) ? "weekend" : ""}
                                 />
                             </Col>
                         </Form.Group>

@@ -30,7 +30,7 @@ const Login = () => {
         setErrorMessage(null);
       })
       .catch((err) => {
-        setErrorMessage(err.message);
+        setErrorMessage("Something went wrong. Please check your login details");
         console.log(err)
       })
       .finally(() => navigate("/"));
@@ -42,7 +42,7 @@ const Login = () => {
   };
 
   return (
-    <div class="d-flex justify-content-center align-items-center vh-100">
+    <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="login-page">
         <form onSubmit={handleSubmit}>
           <h2 className="login-h2">Login Form</h2>
