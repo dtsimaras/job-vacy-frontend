@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 import useApi from "../../hooks/useApi";
 import { Container } from "react-bootstrap";
 
-const CreateUser = ({ setActiveUsersView }) => {
+const CreateUser = () => {
 
   const { api } = useApi();
   const [registerFormData, setRegisterFormData] = useState({
@@ -17,12 +17,15 @@ const CreateUser = ({ setActiveUsersView }) => {
     roles: [],
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    api
-      .post("admin/users", registerFormData)
-      .then((res) => console.log(res.data))
-      .finally(() => setActiveUsersView("usersTab"));
+  const handleSubmit = () => {
+    // e.preventDefault();
+    try {
+      api
+        .post("admin/users", registerFormData)
+        .then(() => console.log("User Created"));
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleChange = (e) => {
@@ -43,20 +46,6 @@ const CreateUser = ({ setActiveUsersView }) => {
       setRegisterFormData({ ...registerFormData, [id]: value });
     }
   };
-
-  // return (
-  //   <Container>
-  //     <Form onSubmit={handleSubmit}>
-  //       <FloatingLabel controlId="firstname" label="First Name" className="mb-3">
-  //         <Form.Control type="text" placeholder="John" className="col-6" value={registerFormData.firstname} onChange={handleChange} />
-  //       </FloatingLabel>
-
-  //       <FloatingLabel controlId="password" label="Password">
-  //         <Form.Control type="password" placeholder="Password" />
-  //       </FloatingLabel>
-  //     </Form>
-  //   </Container>
-  // );
 
   return (
     <Container>
