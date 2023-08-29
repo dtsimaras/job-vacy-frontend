@@ -1,8 +1,15 @@
 import { Tab, Tabs } from "react-bootstrap";
 import DataTable from "../../../components/DataTable";
 import CreateUser from "../../../components/CreateUser";
+import { useState } from "react";
 
 const UserManagement = () => {
+  const [active, setActive] = useState('view-users');
+
+  const handleSelectTab = (key) => {
+    setActive(key);
+  }
+
   return (
     <>
 
@@ -10,12 +17,14 @@ const UserManagement = () => {
         defaultActiveKey="view-users"
         id="uncontrolled-tab-example"
         className="mb-3"
+        activeKey={active}
+        onSelect={handleSelectTab}
       >
-        <Tab variant="light" eventKey="view-users" title="All Users">
+        <Tab eventKey="view-users" title="All Users">
           <DataTable dataUrl={"admin/users"} />
         </Tab>
         <Tab eventKey="create-user" title="New User">
-        <CreateUser />
+          <CreateUser setActive={setActive} />
         </Tab>
       </Tabs>
     </>

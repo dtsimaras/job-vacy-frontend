@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 import useApi from "../../hooks/useApi";
 import { Container } from "react-bootstrap";
 
-const CreateUser = () => {
+const CreateUser = ({ setActive }) => {
 
   const { api } = useApi();
   const [registerFormData, setRegisterFormData] = useState({
@@ -17,12 +17,13 @@ const CreateUser = () => {
     roles: [],
   });
 
-  const handleSubmit = () => {
-    // e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     try {
       api
         .post("admin/users", registerFormData)
-        .then(() => console.log("User Created"));
+        .then(() => console.log("User Created"))
+        .finally(setActive('view-users'));
     } catch (err) {
       console.error(err);
     }
