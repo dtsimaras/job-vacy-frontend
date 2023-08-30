@@ -20,24 +20,24 @@ const DataTable = ({ dataUrl, formatter }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-    const { loading, get } = useApi();
+    const { loading, get, post } = useApi();
+
+    const fetchData = async () => {
+        try {
+            const res = await get(
+                `${dataUrl}?pageNo=${currentPage}&pageSize=${pageSize}`
+            );
+            if (res.data.content !== undefined) {
+                setData(res.data.content);
+                setCurrentPage(res.data.currentPage);
+                setTotalPages(res.data.pages);
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await get(
-                    `${dataUrl}?pageNo=${currentPage}&pageSize=${pageSize}`
-                );
-                if (res.data.content !== undefined) {
-                    setData(res.data.content);
-                    setCurrentPage(res.data.currentPage);
-                    setTotalPages(res.data.pages);
-                }
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-
         fetchData();
     }, [currentPage, pageSize]);
 
@@ -56,11 +56,26 @@ const DataTable = ({ dataUrl, formatter }) => {
         </Spinner>
     );
 
-    const showStatus = (header) => {
+    const showStatus = (header, item) => {
         return (
-            <td key={header}> Ένα dropdown που να στέλνει post request</td>
-        ) 
+            <td key={header}>
+                <DropdownButton variant="light" title={item.status}>
+                    <Dropdown.Item onClick={() => handleStatusChange(item.user_id, item.id, "APPROVED")}>APPROVED</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleStatusChange(item.user_id, item.id, "PENDING")}>PENDING</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleStatusChange(item.user_id, item.id, "DENIED")}>DENIED</Dropdown.Item>
+                </DropdownButton>
+            </td>
+        )
     }
+
+    const handleStatusChange = (user_id, request_id, status) => {
+        try {
+            post(`manager/members/${user_id}/request/${request_id}`, status)
+                .then(fetchData());
+        } catch (error) {
+            console.error("Error changing status:", error);
+        }
+    };
 
     const table = (
         <Container>
@@ -79,7 +94,7 @@ const DataTable = ({ dataUrl, formatter }) => {
                             {headers.map((header) => (
                                 <>
                                     {header === 'status'
-                                        ? showStatus(header)
+                                        ? showStatus(header, item)
                                         : <td key={header}>{formattedData(item, header)}</td>
                                     }
                                 </>
