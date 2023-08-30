@@ -1,7 +1,7 @@
 import useApi from "../../hooks/useApi";
 import { useState, useEffect } from "react";
 import { Container, Dropdown, DropdownButton, Pagination, Spinner, Table } from "react-bootstrap";
-import { FaEdit } from "react-icons/fa";
+import EditModal from "../EditForm/EditModal";
 
 const defaultDataFormatter = (element, header) => {
     if (typeof element[header] === "boolean") {
@@ -22,21 +22,25 @@ const DataTable = ({ dataUrl, formatter }) => {
     const [pageSize, setPageSize] = useState(10);
     const { loading, get } = useApi();
 
+
+
+    const fetchData = async () => {
+      try {
+        const res = await get(
+          `${dataUrl}?pageNo=${currentPage}&pageSize=${pageSize}`
+        );
+        if (res.data.content !== undefined) {
+          setData(res.data.content);
+          setCurrentPage(res.data.currentPage);
+          setTotalPages(res.data.pages);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await get(
-                    `${dataUrl}?pageNo=${currentPage}&pageSize=${pageSize}`
-                );
-                if (res.data.content !== undefined) {
-                    setData(res.data.content);
-                    setCurrentPage(res.data.currentPage);
-                    setTotalPages(res.data.pages);
-                }
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
+        
 
         fetchData();
     }, [currentPage, pageSize]);
@@ -73,7 +77,7 @@ const DataTable = ({ dataUrl, formatter }) => {
                             {headers.map((header) => (
                                 <td key={header}>{formattedData(item, header)}</td>
                             ))}
-                            <td><FaEdit /></td>
+                            <td><EditModal item={item} fetchData={fetchData}/></td>
                         </tr>
                     ))}
                 </tbody>
