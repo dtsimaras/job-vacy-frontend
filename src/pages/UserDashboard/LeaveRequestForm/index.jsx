@@ -6,14 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import useApi from '../../../hooks/useApi';
 import "./style.css";
 
-// Get todays date in order to set dates you can pick in the DatePicker 
-const today = new Date();
-const minStartDate = new Date();
-minStartDate.setDate(today.getDate());
-
 //TODO: Can be refactored and split
 const LeaveRequestForm = () => {
-    const [startDate, setStartDate] = useState(minStartDate);
+    const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(null);
     const [selectedType, setSelectedType] = useState('');
     const [leaveTypes, setLeaveTypes] = useState('');
@@ -27,6 +22,7 @@ const LeaveRequestForm = () => {
                 const res = await get('/leavetypes');
                 const days = await get('/user/days');
                 setLeaveTypes({ ...res.data });
+                setSelectedType(Object.keys(res.data)[0]);
                 setDaysPerLeaveType(days.data);
             } catch (err) {
                 console.error("Error fetching data:", err)
@@ -53,9 +49,13 @@ const LeaveRequestForm = () => {
         setRemainingDays(daysPerLeaveType.find(element => element.type === selectedType)?.remaining || -1);
     };
 
-    const handleSubmit = () => {
-        // event.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (selectedType === '') {
+            console.log(selectedType + 1)
+        }
         try {
+            endDate.setDate(endDate.getDate() + 1);
             post("user/requests", { startDate, endDate, type: selectedType })
                 .then((res) => console.log(res.data))
                 .finally(() => {
@@ -96,7 +96,7 @@ const LeaveRequestForm = () => {
                                     onChangeRaw={e => e.preventDefault()}
                                     startDate={startDate}
                                     endDate={endDate}
-                                    minDate={minStartDate}
+                                    minDate={new Date()}
                                     filterDate={isWeekday}
                                     dayClassName={date => isWeekday(date) ? "weekend" : ""}
                                 />
@@ -125,10 +125,11 @@ const LeaveRequestForm = () => {
                             <Form.Control as="select" value={selectedType} onChange={handleLeaveTypeChange}>
                                 {
                                     Object.keys(leaveTypes).map((key, index) => (
-                                        <option key={index} value={key}>
-                                            {leaveTypes[key]}
-                                        </option>
-                                    ))
+                                            <option key={index} value={key}>
+                                                {leaveTypes[key]}
+                                            </option>
+                                        )
+                                    )
                                 }
                             </Form.Control>
                             {showAvailability()}
