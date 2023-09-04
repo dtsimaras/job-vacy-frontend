@@ -1,7 +1,7 @@
 import { Tab, Tabs } from "react-bootstrap";
-import DataTable from "../../../components/DataTable";
-import CreateUser from "../../../components/CreateUser";
 import { useState } from "react";
+import CreateUser from "../../../components/admin/user/CreateUser";
+import AdminUsersTable from "../../../components/admin/user/AdminUsersTable";
 
 const UserManagement = () => {
   const [active, setActive] = useState('view-users');
@@ -12,7 +12,6 @@ const UserManagement = () => {
 
   return (
     <>
-
       <Tabs
         defaultActiveKey="view-users"
         id="uncontrolled-tab-example"
@@ -21,14 +20,15 @@ const UserManagement = () => {
         onSelect={handleSelectTab}
       >
         <Tab eventKey="view-users" title="All Users">
-          <DataTable dataUrl={"admin/users"} />
+          {/* <DataTable dataUrl={"admin/users"} /> */}
+          <AdminUsersTable />
         </Tab>
         <Tab eventKey="create-user" title="New User">
           <CreateUser setActive={setActive} />
         </Tab>
       </Tabs>
     </>
-  )
+  );
 };
 
 export default UserManagement;

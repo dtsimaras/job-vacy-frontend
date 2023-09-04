@@ -2,9 +2,9 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FaEdit } from "react-icons/fa";
-import EditUser from "../EditUser/EditUser";
+import EditUser from "../admin/user/editUser/EditUserForm";
 import useApi from "../../hooks/useApi";
-import EditRequest from "../EditRequest/EditRequest";
+// import EditRequest from "../EditRequest/EditRequest";
 import TestForm from "../EditRequest/TestForm";
 
 // eslint-disable-next-line react/prop-types

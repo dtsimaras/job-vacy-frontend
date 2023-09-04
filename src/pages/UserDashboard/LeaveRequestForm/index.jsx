@@ -50,7 +50,7 @@ const LeaveRequestForm = () => {
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         if (selectedType === '') {
             console.log(selectedType + 1)
         }

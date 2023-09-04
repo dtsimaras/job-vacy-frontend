@@ -3,23 +3,23 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { Container } from "react-bootstrap";
 
-const EditUser = ({ editable, setEditable }) => {
+const EditUserForm = ({ editUser, setEditUser }) => {
   const handleChange = (e) => {
     const { id, checked, value } = e.target;
     if (e.target.type === "checkbox") {
       if (checked) {
-        setEditable({
-          ...editable,
-          roles: [...editable.roles, value],
+        setEditUser({
+          ...editUser,
+          roles: [...editUser.roles, value],
         });
       } else {
-        setEditable({
-          ...editable,
-          roles: [...editable.roles.filter((role) => role !== value)],
+        setEditUser({
+          ...editUser,
+          roles: [...editUser.roles.filter((role) => role !== value)],
         });
       }
     } else {
-      setEditable({ ...editable, [id]: value });
+      setEditUser({ ...editUser, [id]: value });
     }
   };
 
@@ -31,7 +31,7 @@ const EditUser = ({ editable, setEditable }) => {
             <Form.Control
               type="text"
               placeholder="John"
-              value={editable.firstname}
+              value={editUser.firstname}
               onChange={handleChange}
             />
           </Col>
@@ -42,7 +42,7 @@ const EditUser = ({ editable, setEditable }) => {
             <Form.Control
               type="text"
               placeholder="Doe"
-              value={editable.lastname}
+              value={editUser.lastname}
               onChange={handleChange}
             />
           </Col>
@@ -54,23 +54,11 @@ const EditUser = ({ editable, setEditable }) => {
               disabled
               type="email"
               placeholder="example@email.com"
-              value={editable.email}
+              value={editUser.email}
               onChange={handleChange}
             />
           </Col>
         </Form.Group>
-
-        {/* <Form.Group as={Row} className="mb-3" controlId="password">
-          <Col sm={6}>
-            <Form.Control
-              type="password"
-              placeholder="password"
-              value={editable.password}
-              onChange={handleChange}
-            />
-          </Col>
-        </Form.Group> */}
-        {/* TODO: implement repeat password */}
         <fieldset>
           <Form.Group as={Row} className="mb-3 check">
            
@@ -84,7 +72,7 @@ const EditUser = ({ editable, setEditable }) => {
                 name="user"
                 id="user"
                 value={"USER"}
-                checked={editable.roles.includes("USER")}
+                checked={editUser.roles.includes("USER")}
                 onChange={handleChange}
               />
               <Form.Check
@@ -93,7 +81,7 @@ const EditUser = ({ editable, setEditable }) => {
                 name="manager"
                 id="manager"
                 value={"MANAGER"}
-                checked={editable.roles.includes("MANAGER")}
+                checked={editUser.roles.includes("MANAGER")}
                 onChange={handleChange}
               />
               <Form.Check
@@ -103,7 +91,7 @@ const EditUser = ({ editable, setEditable }) => {
                 name="admin"
                 id="admin"
                 value={"ADMIN"}
-                checked={editable.roles.includes("ADMIN")}
+                checked={editUser.roles.includes("ADMIN")}
                 onChange={handleChange}
               />
             </Col>
@@ -114,4 +102,4 @@ const EditUser = ({ editable, setEditable }) => {
   );
 };
 
-export default EditUser;
+export default EditUserForm;

@@ -2,12 +2,13 @@ import UserManagement from "./UserManagement";
 import Header from "../../components/Header";
 import Panel from "./Panel";
 import { Tab, Tabs } from "react-bootstrap";
+import TeamManagement from "./TeamManagement/TeamManagement";
 
 function AdminDashboard() {
-
   return (
     <>
       <Header />
+      
       <Tabs
         defaultActiveKey="panel"
         id="uncontrolled-tab-example"
@@ -24,8 +25,8 @@ function AdminDashboard() {
         <Tab eventKey="users" title="Users">
           <UserManagement />
         </Tab>
-        <Tab eventKey="teams" title="Teams" disabled>
-          Tab content for Team Management
+        <Tab eventKey="teams" title="Teams">
+          <TeamManagement />
         </Tab>
       </Tabs>
     </>
