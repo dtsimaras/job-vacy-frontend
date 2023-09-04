@@ -3,8 +3,11 @@ import useApi from "../../../hooks/useApi";
 import { Container, Table } from "react-bootstrap";
 import EditUserModal from "./editUser/EditUserModal";
 import Page from "../../pagination/Page";
+import { FaEye } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const AdminUsersTable = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -66,6 +69,9 @@ const AdminUsersTable = () => {
         return user;
       })
     );
+  };
+  const handleViewChick = (user) => {
+    navigate(`/admin/view-user/${user.id}` /*{ state: user } */);
   };
 
   return (
@@ -137,6 +143,10 @@ const AdminUsersTable = () => {
                   handleCloseWithoutSaving={handleCloseWithoutSaving}
                   handleCloseWithSaving={handleCloseWithSaving}
                   show={showEdit}
+                />
+                <FaEye
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleViewChick(user)}
                 />
               </td>
             </tr>
