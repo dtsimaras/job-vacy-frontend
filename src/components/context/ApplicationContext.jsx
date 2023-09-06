@@ -1,5 +1,7 @@
 import { createContext } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import PropTypes from 'prop-types';
+
 const ApplicationContext = createContext();
 
 export const Context = ({ children }) => {
@@ -16,6 +18,10 @@ export const Context = ({ children }) => {
       {children}
     </ApplicationContext.Provider>
   );
+};
+
+Context.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default ApplicationContext;

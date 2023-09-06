@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import ApplicationContext from '../../components/context/ApplicationContext'
-import Login from '../../components/Login';
+import Login from './Login';
 import Header from '../../components/Header';
 
 function Home() {

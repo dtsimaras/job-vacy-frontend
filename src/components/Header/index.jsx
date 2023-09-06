@@ -12,7 +12,7 @@ const Header = () => {
   const { api } = useApi();
   const navigate = useNavigate();
 
-  const handleLogout = () => { //TODO: refactor this? Should I move it in useApi or not?
+  const handleLogout = () => {
     api
       .post("auth/logout")
       .then((res) => console.log(res))

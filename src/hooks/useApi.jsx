@@ -5,7 +5,6 @@ import ApplicationContext from '../components/context/ApplicationContext';
 
 function useApi() {
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
     const { jwt } = useContext(ApplicationContext);
 
     const api = axios.create({
@@ -19,12 +18,10 @@ function useApi() {
     const get = async (url) => {
         try {
             setLoading(true);
-            setError(null);
             const response = await api.get(url);
             return response;
         } catch (error) {
-            setError(error);
-            throw(error);
+            console.error('API Error:', error);
         } finally {
             setLoading(false);
         }
@@ -33,17 +30,16 @@ function useApi() {
     const post = async (url, data) => {
         try {
             setLoading(true);
-            setError(null);
             const response = await api.post(url, data);
             return response;
         } catch (error) {
-            setError(error);
+            console.error('API Error:', error);
         } finally {
             setLoading(false);
         }
     };
 
-    return { api, loading, error, get, post }
+    return { api, loading, get, post }
 }
 
 

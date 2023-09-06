@@ -2,8 +2,8 @@ import "./style.css";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ApplicationContext from "../context/ApplicationContext";
-import useApi from "../../hooks/useApi";
+import ApplicationContext from "../../../components/context/ApplicationContext";
+import useApi from "../../../hooks/useApi";
 
 const Login = () => {
   const { api } = useApi();

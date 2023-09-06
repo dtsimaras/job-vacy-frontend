@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import useApi from "../../hooks/useApi";
 import { Container } from "react-bootstrap";
+import PropTypes from 'prop-types';
 
 const CreateUser = ({ setActive }) => {
 
@@ -122,6 +123,10 @@ const CreateUser = ({ setActive }) => {
       </Form>
     </Container>
   );
+};
+
+CreateUser.propTypes = {
+  setActive: PropTypes.func.isRequired,
 };
 
 export default CreateUser;

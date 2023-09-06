@@ -8,6 +8,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import UserDashboard from "./pages/UserDashboard";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
 
@@ -25,6 +26,9 @@ function App() {
 
         {/* User routes */}
         <Route path="/user" element={<PrivateRoute element={<UserDashboard />} requiredRoles={['USER']} />} />
+
+        {/* Error pages */}
+        <Route path="*" element={<PageNotFound />} />
 
       </Routes>
     </div>

@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import useApi from '../../../hooks/useApi';
 import "./style.css";
 
-//TODO: Can be refactored and split
 const LeaveRequestForm = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(null);
@@ -29,6 +28,7 @@ const LeaveRequestForm = () => {
             }
         }
         fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {

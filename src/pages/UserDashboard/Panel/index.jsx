@@ -8,13 +8,14 @@ function Panel() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const days = await get('/user/days'); // include property display in the dao in api : "Κανονική"
+                const days = await get('/user/days');
                 setDaysPerLeaveType(days.data);
             } catch (err) {
                 console.error("Error fetching data:", err)
             }
         }
         fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const showAvailability = () => {
